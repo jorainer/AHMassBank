@@ -7,8 +7,8 @@
 #' @noRd
 NULL
 
-version <- "2021.03"
-biocVersion <- "3.15"
+version <- "2022.06"
+biocVersion <- "3.16"
 
 baseDir <- "/home/jo/Projects/CompDbs/"
 
