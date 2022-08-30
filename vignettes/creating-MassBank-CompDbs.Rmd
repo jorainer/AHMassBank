@@ -1,0 +1,93 @@
+---
+title: "MassBank Data for AnnotationHub"
+author: "Johannes Rainer"
+graphics: no
+package: AHMassBank
+output:
+    BiocStyle::html_document:
+      toc_float: true
+vignette: >
+    %\VignetteIndexEntry{Provide EnsDb databases for AnnotationHub}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
+    %\VignetteDepends{CompoundDb,AnnotationHub}
+---
+
+```{r style, echo = FALSE, results = 'asis', message=FALSE}
+BiocStyle::markdown()
+```
+
+**Authors**: `r packageDescription("AHMassBank")[["Author"]] `<br />
+**Compiled**: `r date()`
+
+# Introduction
+
+MassBank is an open access, community maintained annotation database for small
+compounds. Annotations provided by this database comprise names, chemical
+formulas, exact masses and other chemical properties for small compounds
+(including metabolites, medical treatment agents and others). In addition,
+fragment spectra are available which are crucial for the annotation of
+untargeted mass spectrometry data. The `CompoundDb` Bioconductor package
+supports conversion of MassBank data into the `CompDb` (SQLite) format which
+enables a simplified distribution of the resource and easy integration into
+Bioconductor-based annotation workflows.
+
+
+# Fetch MassBank `CompDb` Databases from `AnnotationHub`
+
+The `AHMassBank` package provides the metadata for all `CompDb` SQLite databases
+with [MassBank](https://massbank.eu/MassBank) annotations in `r
+Biocpkg("AnnotationHub")`. To get and use MassBank annotations we first we
+load/update the `AnnotationHub` resource.
+
+```{r load-lib, message = FALSE}
+library(AnnotationHub)
+ah <- AnnotationHub()
+```
+
+Next we list all *MassBank* entries from `AnnotationHub`.
+
+```{r}
+query(ah, "MassBank")
+```
+
+We fetch the `CompDb` with MassBank annotations for release *2021.03*.
+
+```{r load-ensdb}
+qr <- query(ah, c("MassBank", "2021.03"))
+cdb <- qr[[1]]
+```
+
+
+# Creating `CompDb` Databases from MassBank
+
+MassBank provides its annotation database as a MySQL dump. To simplify its usage
+(also for users not experienced with MySQL or with the specific MassBank
+database layout), MassBank annotations can also be converted into the
+(SQLite-based) `CompDb` format which can be easily used with the 
+`r Biocpkg("CompoundDb")` package. The steps to convert a MassBank MySQL
+database to a `CompDb` SQLite database are described below.
+
+First the MySQL database dump needs to be downloaded from the MassBank [github
+page](https://github.com/MassBank/MassBank-data/releases). This database needs
+to be installed into a local MySQL/MariaDB database server (using `mysql -h
+localhost -u <username> -p < MassBank.sql` with `<username>` being the name of
+the user with write access to the database server).
+
+To transfer the MassBank data into a `CompDb` database a helper function from
+the `CompoundDb` package can be used.
+
+```{r, eval = FALSE}
+library(RMariaDB)
+con <- dbConnect(MariaDB(), host = "localhost", user = <username>,
+                 pass = <password>, dbname = "MassBank")
+source(system.file("scripts", "massbank_to_compdb.R", package = "CompoundDb"))
+massbank_to_compdb(con)
+```
+
+
+# Session Information
+
+```{r}
+sessionInfo()
+```
