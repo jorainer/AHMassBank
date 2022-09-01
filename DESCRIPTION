@@ -1,7 +1,7 @@
 Package: AHMassBank
 Type: Package
 Title: MassBank Annotation Resources for AnnotationHub
-Version: 1.0.0
+Version: 1.0.1
 Encoding: UTF-8
 Author: Johannes Rainer
 Maintainer: Johannes Rainer <johannes.rainer@eurac.edu>

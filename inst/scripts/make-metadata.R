@@ -10,11 +10,11 @@ NULL
 version <- "2022.06"
 biocVersion <- "3.16"
 
-baseDir <- "/home/jo/Projects/CompDbs/"
+baseDir <- "/home/jo/Projects/AHMassBank/"
 
 
 ## Start processing the data.
-fl <- paste0(baseDir, "CompDb.MassBank.", version, ".sqlite")
+fl <- paste0(baseDir, version, "/CompDb.MassBank.", version, ".sqlite")
 if (!file.exists(fl))
     stop("File ", fl, " not found")
 
@@ -42,7 +42,7 @@ cdb <- CompDb(fl)
         Maintainer = "Johannes Rainer <johannes.rainer@eurac.edu>",
         RDataClass = "CompDb",
         DispatchClass = "CompDb",
-        RDataPath = paste0("AHCompDbs/", version, "/", basename(x)),
+        RDataPath = paste0("AHMassBank/", version, "/", basename(x)),
         ResourceName = basename(x),
         Tags = paste0("CompDb:MassBank:Metabolite:Annotation:", version)
     )
