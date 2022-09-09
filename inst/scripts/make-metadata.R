@@ -25,7 +25,7 @@ cdb <- CompDb(fl)
 .metadataForCompDb <- function(x, biocVersion) {
     message("Processing file ", basename(x), " ... ", appendLF = FALSE)
     mtd <- metadata(CompDb(x))
-    version <- mtd$value[mtd$name == "source_date"]
+    mb_date <- mtd$value[mtd$name == "source_date"]
     vals <- data.frame(
         Title = paste0("MassBank CompDb for release ", version),
         Description = paste0("CompDb annotation database with compound ",
