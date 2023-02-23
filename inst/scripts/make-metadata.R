@@ -7,7 +7,7 @@
 #' @noRd
 NULL
 
-version <- "2022.06"
+version <- "2022.12.1"
 biocVersion <- "3.16"
 
 baseDir <- "/home/jo/Projects/AHMassBank/"
