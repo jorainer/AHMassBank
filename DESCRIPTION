@@ -1,7 +1,7 @@
 Package: AHMassBank
 Type: Package
 Title: MassBank Annotation Resources for AnnotationHub
-Version: 1.0.4
+Version: 0.99
 Encoding: UTF-8
 Author: Johannes Rainer
 Maintainer: Johannes Rainer <johannes.rainer@eurac.edu>
@@ -22,4 +22,4 @@ VignetteBuilder: knitr
 License: Artistic-2.0
 LazyLoad: yes
 biocViews: MassSpectrometry, AnnotationHubSoftware
-
+RoxygenNote: 7.2.3
