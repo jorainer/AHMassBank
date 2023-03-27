@@ -5,7 +5,7 @@ Version: 0.99.1
 Encoding: UTF-8
 Authors@R: c(person(given = "Johannes", family = "Rainer",
                     email = "Johannes.Rainer@eurac.edu",
-                    role = "aut",
+                    role = "cre",
                     comment = c(ORCID = "0000-0002-6977-7147")))
 Depends: R (>= 3.4), methods, CompoundDb (>= 1.1.4)
 Imports: AnnotationHubData (>= 1.5.24)
