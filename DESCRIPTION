@@ -1,10 +1,12 @@
 Package: AHMassBank
 Type: Package
 Title: MassBank Annotation Resources for AnnotationHub
-Version: 0.99.0
+Version: 0.99.1
 Encoding: UTF-8
-Author: Johannes Rainer
-Maintainer: Johannes Rainer <johannes.rainer@eurac.edu>
+Authors@R: c(person(given = "Johannes", family = "Rainer",
+                    email = "Johannes.Rainer@eurac.edu",
+                    role = "aut",
+                    comment = c(ORCID = "0000-0002-6977-7147")))
 Depends: R (>= 3.4), methods, CompoundDb (>= 1.1.4)
 Imports: AnnotationHubData (>= 1.5.24)
 Suggests: BiocStyle,
