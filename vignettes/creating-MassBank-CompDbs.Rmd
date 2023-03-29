@@ -27,10 +27,10 @@ compounds. Annotations provided by this database comprise names, chemical
 formulas, exact masses and other chemical properties for small compounds
 (including metabolites, medical treatment agents and others). In addition,
 fragment spectra are available which are crucial for the annotation of
-untargeted mass spectrometry data. The `CompoundDb` Bioconductor package
-supports conversion of MassBank data into the `CompDb` (SQLite) format which
-enables a simplified distribution of the resource and easy integration into
-Bioconductor-based annotation workflows.
+untargeted mass spectrometry data. The `r BiocStyle::Biocpkg("CompoundDb")`
+Bioconductor package supports conversion of MassBank data into the `CompDb`
+(SQLite) format which enables a simplified distribution of the resource and easy
+integration into Bioconductor-based annotation workflows.
 
 
 # Fetch MassBank `CompDb` Databases from `AnnotationHub`

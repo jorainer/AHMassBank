@@ -1,27 +1,32 @@
 Package: AHMassBank
 Type: Package
 Title: MassBank Annotation Resources for AnnotationHub
-Version: 0.99.2
+Version: 0.99.3
 Encoding: UTF-8
 Authors@R: c(person(given = "Johannes", family = "Rainer",
                     email = "Johannes.Rainer@eurac.edu",
                     role = "cre",
                     comment = c(ORCID = "0000-0002-6977-7147")))
-Depends: R (>= 3.4), methods, CompoundDb (>= 1.1.4)
+Depends: R (>= 4.2) 
 Imports: AnnotationHubData (>= 1.5.24)
 Suggests: BiocStyle,
 	  knitr,
 	  AnnotationHub (>= 2.7.13),
-	  rmarkdown
+	  rmarkdown,
+	  methods,
+	  CompoundDb (>= 1.1.4)
 Description:
     Supplies AnnotationHub with MassBank metabolite/compound annotations
     bundled in CompDb SQLite databases. CompDb SQLite databases contain general
     compound annotation as well as fragment spectra representing fragmentation
-    patterns of compounds. MassBank data is retrieved from
+    patterns of compounds' ions. MassBank data is retrieved from
     https://massbank.eu/MassBank and processed using helper functions from the
-    CompoundDb package into SQLite databases.
+    CompoundDb Bioconductor package into redistributable SQLite databases.
 VignetteBuilder: knitr
 License: Artistic-2.0
 LazyLoad: yes
+BugReports: https://github.com/jorainer/AHMassBank/issues
+URL: https://github.com/jorainer/AHMassBank
 biocViews: MassSpectrometry, AnnotationHubSoftware
+Roxygen: list(markdown=TRUE)
 RoxygenNote: 7.2.3
