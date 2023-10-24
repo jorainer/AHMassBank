@@ -1,7 +1,7 @@
 Package: AHMassBank
 Type: Package
 Title: MassBank Annotation Resources for AnnotationHub
-Version: 1.1.0
+Version: 1.2.0
 Encoding: UTF-8
 Authors@R: c(person(given = "Johannes", family = "Rainer",
                     email = "Johannes.Rainer@eurac.edu",
