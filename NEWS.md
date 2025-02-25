@@ -1,6 +1,6 @@
-# AHMassBank 1.7
+# AHMassBank 1.6
 
-## AHMassBank 1.7.1
+## AHMassBank 1.6.1
 
 - Add MassBank releases 2024.06 and 2024.11.
 
