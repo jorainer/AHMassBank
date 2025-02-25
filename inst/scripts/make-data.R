@@ -10,7 +10,8 @@
 #' 
 #' - download the MySQL database dump *MassBank.sql* from
 #'   https://github.com/MassBank/MassBank-data/releases
-#' - install the MySQL database dump locally on a MySQL/MariaDB server.
+#' - install the MySQL database dump locally on a MySQL/MariaDB server. Might
+#'   be needed to replace *DEFINER* fields in the SQL file.
 #' - start R and connect to this database (using the `RMariaDB` package).
 #' - load the helper function with
 #'   `source(system.file("scripts", "massbank_to_compdb.R", package = "CompoundDb"))`
