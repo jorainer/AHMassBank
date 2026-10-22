@@ -1,3 +1,10 @@
+# AHMassBank 1.13
+
+## Changes in AHMassBank 1.13.1
+
+- Add MassBank releases 2025.05.1, 2025.10 and 2026.03 with their data files
+  being retrieved from GitHub.
+
 # AHMassBank 1.6
 
 ## AHMassBank 1.6.1

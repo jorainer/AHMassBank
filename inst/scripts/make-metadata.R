@@ -1,58 +1,73 @@
-#' Steps to create the metadata for a new release:
+#' Updated version to create the metadata for MassBank releases
 #'
-#' - follow the description to create a new MassBank CompDb in `make-data.R`.
-#' - Copy the `CompDb` SQLite file to the folder */home/jo/Projects/CompDbs*.
-#' - Change the `version` variable below to the new MassBank release.
+#' To add a new release:
 #'
+#' - update the `releases` variable below (just keeping the one release that
+#'   should be added)
+#' - update `BiocVersion` (if needed).
+#' - run `source("make-metadata.R")` **in this folder containing the script**.
+#' 
 #' @noRd
 NULL
 
-version <- "2024.11"
-biocVersion <- "3.20"
+if (!"make-metadata.R" %in% dir())
+    stop("run R in the inst/scripts/ folder")
 
-baseDir <- "/home/jo/Projects/AHMassBank/AHMassBank/"
+## Update this variable!
+releases <- c("2025.05.1", "2025.10", "2026.03")
 
+## Update if the BiocVersion different from the current one.
+BiocVersion <- character()
 
-## Start processing the data.
-fl <- paste0(baseDir, version, "/CompDb.MassBank.", version, ".sqlite")
-if (!file.exists(fl))
-    stop("File ", fl, " not found")
+if (!length(BiocVersion))
+    BiocVersion <- as.character(BiocManager::version())
 
-require(CompoundDb, quietly = TRUE)
-cdb <- CompDb(fl)
+library(gh)
 
-
-.metadataForCompDb <- function(x, biocVersion) {
-    message("Processing file ", basename(x), " ... ", appendLF = FALSE)
-    mtd <- metadata(CompDb(x))
-    mb_date <- mtd$value[mtd$name == "source_date"]
-    vals <- data.frame(
-        Title = paste0("MassBank CompDb for release ", version),
-        Description = paste0("CompDb annotation database with compound ",
-                             "annotations for MassBank release ", version, "."),
+.release_metadata <- function(x, biocVersion) {
+    release_meta <- gh("GET /repos/MassBank/MassBank-data/releases/tags/:tag", 
+                       tag = x)
+    asset_names <- vapply(release_meta$assets, function(x) x$name, "")
+    idx <- grep("RIKEN", asset_names)
+    if (length(idx) != 1L)
+        stop("Requested asset not found for release ", x)
+    asset <- release_meta$assets[[idx]]
+    if (!length(asset))
+        stop("Requested asset not found in this release!")
+    prefix <- "https://github.com"
+    path <- sub(paste0("^", prefix), "",
+                asset$browser_download_url)
+    res <- data.frame(
+        Title = paste0("MassBank release ", x),
+        Description = paste0("Spectra object with MS2 spectra and small ",
+                             "compound annotations from MassBank release ",
+                             x, "."),
         BiocVersion = biocVersion,
         Genome = NA_character_,
-        SourceType = "MySQL",
-        SourceUrl = "https://massbank.eu/MassBank",
-        SourceVersion = version,
+        SourceType = "MSP",
+        SourceUrl = "https://github.com/MassBank/MassBank-data",
+        SourceVersion = x,
+        SourceLastModifiedDate = as.POSIXct(release_meta$created_at),
         Species = NA_character_,
         TaxonomyId = NA_character_,
         Coordinate_1_based = NA,
         DataProvider = "MassBank",
         Maintainer = "Johannes Rainer <johannes.rainer@eurac.edu>",
-        RDataClass = "CompDb",
-        DispatchClass = "CompDb",
-        RDataPath = paste0("AHMassBank/", version, "/", basename(x)),
-        ResourceName = basename(x),
-        Tags = paste0("CompDb:MassBank:Metabolite:Annotation:", version)
+        RDataClass = "Spectra",
+        DispatchClass = "MspSpectra",
+        Location_Prefix = prefix,
+        RDataPath = path,
+        ResourceName = paste0("MassBank.", x),
+        Tags = paste0("MSP:MassBank:Metabolite:Annotation:", x)
     )
-    message("OK")
-    return(vals)
 }
 
-meta <- .metadataForCompDb(fl, biocVersion)
-write.csv(meta, file = paste0("../extdata/metadata_", version, ".csv"),
-          row.names = FALSE)
+for (release in releases) {
+    m <- .release_metadata(release, BiocVersion)
+    write.csv(m, file = paste0("../extdata/metadata_", release, ".csv"),
+              row.names = FALSE)
+}
+
 
 ## To check the metadata:
 ## library(AnnotationHubData)
